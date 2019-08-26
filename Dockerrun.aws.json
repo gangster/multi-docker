@@ -5,24 +5,28 @@
             "name": "client",
             "image": "gangster/multi-client",
             "hostname": "client",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "server",
             "image": "gangster/multi-server",
             "hostname": "api",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "worker",
             "image": "gangster/multi-worker",
             "hostname": "worker",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "nginx",
             "image": "gangster/multi-nginx",
             "essential": true,
+            "memory": 128, 
             "portMappings": [
                 {
                     "hostPort": 80,
