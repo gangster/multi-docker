@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t gangster/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run gangster/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t gangster/multi-client ./client
+  - docker build -t gangster/multi-nginx ./nginx
+  - docker build -t gangster/multi-server ./server
+  - docker build -t gangster/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u"${DOCKER_ID}" --password-stdin
+  - docker push gangster/multi-client
+  - docker push gangster/multi-nginx
+  - docker push gangster/multi-server
+  - docker push gangster/multi-worker      
